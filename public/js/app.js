@@ -102159,9 +102159,9 @@ exports.default = useStyles;
 
 /***/ }),
 
-/***/ "./resources/js/Application/components/Products/ProductsPage.tsx":
+/***/ "./resources/js/Application/components/Products/ProductsList.tsx":
 /*!***********************************************************************!*\
-  !*** ./resources/js/Application/components/Products/ProductsPage.tsx ***!
+  !*** ./resources/js/Application/components/Products/ProductsList.tsx ***!
   \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -102174,40 +102174,78 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var Table_1 = __importDefault(__webpack_require__(/*! @material-ui/core/Table */ "./node_modules/@material-ui/core/esm/Table/index.js"));
-var TableBody_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableBody */ "./node_modules/@material-ui/core/esm/TableBody/index.js"));
-var TableCell_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableCell */ "./node_modules/@material-ui/core/esm/TableCell/index.js"));
-var TableContainer_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/index.js"));
-var TableHead_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableHead */ "./node_modules/@material-ui/core/esm/TableHead/index.js"));
-var TableRow_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableRow */ "./node_modules/@material-ui/core/esm/TableRow/index.js"));
 var Paper_1 = __importDefault(__webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js"));
 var style_1 = __importDefault(__webpack_require__(/*! ./includes/style */ "./resources/js/Application/components/Products/includes/style.tsx"));
-function createData(name, calories, fat, carbs, protein) {
-    return { name: name, calories: calories, fat: fat, carbs: carbs, protein: protein };
-}
-var rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-var ProductsPage = function () {
+var TableRow_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableRow */ "./node_modules/@material-ui/core/esm/TableRow/index.js"));
+var TableBody_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableBody */ "./node_modules/@material-ui/core/esm/TableBody/index.js"));
+var TableCell_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableCell */ "./node_modules/@material-ui/core/esm/TableCell/index.js"));
+var TableHead_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableHead */ "./node_modules/@material-ui/core/esm/TableHead/index.js"));
+var TableContainer_1 = __importDefault(__webpack_require__(/*! @material-ui/core/TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/index.js"));
+var ProductsList = function (props) {
     var classes = style_1.default();
     return (react_1.default.createElement(TableContainer_1.default, { component: Paper_1.default },
         react_1.default.createElement(Table_1.default, { className: classes.table, "aria-label": "simple table" },
             react_1.default.createElement(TableHead_1.default, null,
                 react_1.default.createElement(TableRow_1.default, null,
-                    react_1.default.createElement(TableCell_1.default, null, "Dessert (100g serving)"),
-                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Calories"),
-                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Fat\u00A0(g)"),
-                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Carbs\u00A0(g)"),
-                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Protein\u00A0(g)"))),
-            react_1.default.createElement(TableBody_1.default, null, rows.map(function (row) { return (react_1.default.createElement(TableRow_1.default, { key: row.name },
-                react_1.default.createElement(TableCell_1.default, { component: "th", scope: "row" }, row.name),
-                react_1.default.createElement(TableCell_1.default, { align: "right" }, row.calories),
-                react_1.default.createElement(TableCell_1.default, { align: "right" }, row.fat),
-                react_1.default.createElement(TableCell_1.default, { align: "right" }, row.carbs),
-                react_1.default.createElement(TableCell_1.default, { align: "right" }, row.protein))); })))));
+                    react_1.default.createElement(TableCell_1.default, null, "id"),
+                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Title"),
+                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Price"),
+                    react_1.default.createElement(TableCell_1.default, { align: "right" }, "Category"))),
+            react_1.default.createElement(TableBody_1.default, null, props.products.map(function (product) { return (react_1.default.createElement(TableRow_1.default, { key: product.id },
+                react_1.default.createElement(TableCell_1.default, { component: "th", scope: "row" }, product.id),
+                react_1.default.createElement(TableCell_1.default, { align: "right" }, product.title),
+                react_1.default.createElement(TableCell_1.default, { align: "right" }, product.price),
+                react_1.default.createElement(TableCell_1.default, { align: "right" }, product.category.title))); })))));
+};
+exports.default = ProductsList;
+
+
+/***/ }),
+
+/***/ "./resources/js/Application/components/Products/ProductsPage.tsx":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Application/components/Products/ProductsPage.tsx ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+var ProductsList_1 = __importDefault(__webpack_require__(/*! ./ProductsList */ "./resources/js/Application/components/Products/ProductsList.tsx"));
+var ProductsPage = function () {
+    var _a = react_1.useState([]), products = _a[0], setProducts = _a[1];
+    react_1.useEffect(function () {
+        fetch("http://127.0.0.1:8000" + '/api/products')
+            .then(function (response) { return response.json(); })
+            .then(function (data) { return setProducts(data.data); });
+    }, []);
+    return (products
+        ? react_1.default.createElement(ProductsList_1.default, { products: products })
+        : react_1.default.createElement("span", null, "\u0437\u0430\u0433\u0440\u0443\u0437\u043A\u0430"));
 };
 exports.default = ProductsPage;
 
