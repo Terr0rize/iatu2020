@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Cookies from 'js-cookie';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import MailIcon from '@material-ui/icons/Mail';
@@ -14,10 +15,10 @@ import { useTheme } from '@material-ui/core/styles';
 import { AppBar, Badge, Divider, Drawer, IconButton, InputBase, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 
 import useStyles from './includes/style';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import INavbarProps from '../../interfaces/INavbarProps';
 
-const NavBar: React.FC<INavbarProps> = (props: any) => {
+const NavBar: React.FC<INavbarProps> = ({ open, handleDrawer, setAuth, history }) => {
     const classes = useStyles();
     const theme = useTheme();
     //меню при клике на аватарку
@@ -33,6 +34,13 @@ const NavBar: React.FC<INavbarProps> = (props: any) => {
         setAnchorEl(null);
     };
 
+    const handleLogOut = () => {
+        Cookies.remove('user_logged_in')
+        setAnchorEl(null);
+        setAuth(false);
+        history.push('/login');
+    }
+
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
         <Menu
@@ -44,11 +52,7 @@ const NavBar: React.FC<INavbarProps> = (props: any) => {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleLogOut}>Logout</MenuItem>
         </Menu>
     );
 
@@ -57,12 +61,12 @@ const NavBar: React.FC<INavbarProps> = (props: any) => {
             <AppBar
                 position="static"
                 className={clsx(classes.appBar, {
-                    [classes.appBarShift]: props.open,
+                    [classes.appBarShift]: open,
                 })}
             >
                 <Toolbar>
                     <IconButton
-                        onClick={props.handleDrawer}
+                        onClick={handleDrawer}
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
@@ -114,13 +118,13 @@ const NavBar: React.FC<INavbarProps> = (props: any) => {
                 className={classes.drawer}
                 variant="persistent"
                 anchor="left"
-                open={props.open}
+                open={open}
                 classes={{
                     paper: classes.drawerPaper
                 }}
             >
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={props.handleDrawer}>
+                    <IconButton onClick={handleDrawer}>
                         {theme.direction === "ltr" ? (
                             <ChevronLeftIcon />
                         ) : (
@@ -147,4 +151,4 @@ const NavBar: React.FC<INavbarProps> = (props: any) => {
     )
 }
 
-export default NavBar;
+export default withRouter(NavBar);

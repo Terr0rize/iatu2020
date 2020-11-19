@@ -101990,7 +101990,7 @@ var App = function () {
         setOpen(status);
     };
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(NavBar_1.default, { open: open, handleDrawer: handleDrawer }),
+        react_1.default.createElement(NavBar_1.default, { open: open, setAuth: setAuth, handleDrawer: handleDrawer }),
         react_1.default.createElement(Index_1.default, { open: open },
             react_1.default.createElement(Routes_1.default, { auth: auth, setAuth: setAuth }))));
 };
@@ -102375,6 +102375,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 var clsx_1 = __importDefault(__webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js"));
+var js_cookie_1 = __importDefault(__webpack_require__(/*! js-cookie */ "./node_modules/js-cookie/src/js.cookie.js"));
 var Menu_1 = __importDefault(__webpack_require__(/*! @material-ui/icons/Menu */ "./node_modules/@material-ui/icons/Menu.js"));
 var Mail_1 = __importDefault(__webpack_require__(/*! @material-ui/icons/Mail */ "./node_modules/@material-ui/icons/Mail.js"));
 var Search_1 = __importDefault(__webpack_require__(/*! @material-ui/icons/Search */ "./node_modules/@material-ui/icons/Search.js"));
@@ -102387,12 +102388,13 @@ var styles_1 = __webpack_require__(/*! @material-ui/core/styles */ "./node_modul
 var core_1 = __webpack_require__(/*! @material-ui/core */ "./node_modules/@material-ui/core/esm/index.js");
 var style_1 = __importDefault(__webpack_require__(/*! ./includes/style */ "./resources/js/Application/components/NavBar/includes/style.tsx"));
 var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-var NavBar = function (props) {
-    var _a;
+var NavBar = function (_a) {
+    var _b;
+    var open = _a.open, handleDrawer = _a.handleDrawer, setAuth = _a.setAuth, history = _a.history;
     var classes = style_1.default();
     var theme = styles_1.useTheme();
     //меню при клике на аватарку
-    var _b = react_1.default.useState(null), anchorEl = _b[0], setAnchorEl = _b[1];
+    var _c = react_1.default.useState(null), anchorEl = _c[0], setAnchorEl = _c[1];
     var isMenuOpen = Boolean(anchorEl);
     var handleProfileMenuOpen = function (event) {
         setAnchorEl(event.currentTarget);
@@ -102400,19 +102402,21 @@ var NavBar = function (props) {
     var handleMenuClose = function () {
         setAnchorEl(null);
     };
+    var handleLogOut = function () {
+        js_cookie_1.default.remove('user_logged_in');
+        setAnchorEl(null);
+        setAuth(false);
+        history.push('/login');
+    };
     var menuId = 'primary-search-account-menu';
     var renderMenu = (react_1.default.createElement(core_1.Menu, { anchorEl: anchorEl, anchorOrigin: { vertical: 'top', horizontal: 'right' }, id: menuId, keepMounted: true, transformOrigin: { vertical: 'top', horizontal: 'right' }, open: isMenuOpen, onClose: handleMenuClose },
-        react_1.default.createElement(core_1.MenuItem, { onClick: handleMenuClose }, "Profile"),
-        react_1.default.createElement(core_1.MenuItem, { onClick: handleMenuClose }, "Profile"),
-        react_1.default.createElement(core_1.MenuItem, { onClick: handleMenuClose }, "Profile"),
-        react_1.default.createElement(core_1.MenuItem, { onClick: handleMenuClose }, "Profile"),
-        react_1.default.createElement(core_1.MenuItem, { onClick: handleMenuClose }, "Profile")));
+        react_1.default.createElement(core_1.MenuItem, { onClick: handleLogOut }, "Logout")));
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement(core_1.AppBar, { position: "static", className: clsx_1.default(classes.appBar, (_a = {},
-                _a[classes.appBarShift] = props.open,
-                _a)) },
+        react_1.default.createElement(core_1.AppBar, { position: "static", className: clsx_1.default(classes.appBar, (_b = {},
+                _b[classes.appBarShift] = open,
+                _b)) },
             react_1.default.createElement(core_1.Toolbar, null,
-                react_1.default.createElement(core_1.IconButton, { onClick: props.handleDrawer, edge: "start", className: classes.menuButton, color: "inherit", "aria-label": "open drawer" },
+                react_1.default.createElement(core_1.IconButton, { onClick: handleDrawer, edge: "start", className: classes.menuButton, color: "inherit", "aria-label": "open drawer" },
                     react_1.default.createElement(Menu_1.default, null)),
                 react_1.default.createElement(core_1.Typography, { className: classes.title, variant: "h6", noWrap: true }, "IATU"),
                 react_1.default.createElement("div", { className: classes.search },
@@ -102432,11 +102436,11 @@ var NavBar = function (props) {
                             react_1.default.createElement(Notifications_1.default, null))),
                     react_1.default.createElement(core_1.IconButton, { edge: "end", "aria-label": "account of current user", "aria-haspopup": "true", onClick: handleProfileMenuOpen, color: "inherit" },
                         react_1.default.createElement(AccountCircle_1.default, null))))),
-        react_1.default.createElement(core_1.Drawer, { className: classes.drawer, variant: "persistent", anchor: "left", open: props.open, classes: {
+        react_1.default.createElement(core_1.Drawer, { className: classes.drawer, variant: "persistent", anchor: "left", open: open, classes: {
                 paper: classes.drawerPaper
             } },
             react_1.default.createElement("div", { className: classes.drawerHeader },
-                react_1.default.createElement(core_1.IconButton, { onClick: props.handleDrawer }, theme.direction === "ltr" ? (react_1.default.createElement(ChevronLeft_1.default, null)) : (react_1.default.createElement(ChevronRight_1.default, null)))),
+                react_1.default.createElement(core_1.IconButton, { onClick: handleDrawer }, theme.direction === "ltr" ? (react_1.default.createElement(ChevronLeft_1.default, null)) : (react_1.default.createElement(ChevronRight_1.default, null)))),
             react_1.default.createElement(core_1.Divider, null),
             react_1.default.createElement(core_1.List, null, [{ 'title': "Articles", 'url': '/' }, { 'title': "Products", 'url': '/products' }].map(function (value, index) { return (react_1.default.createElement(core_1.ListItem, { button: true, key: index },
                 react_1.default.createElement(core_1.ListItemIcon, null, index % 2 === 0 ? react_1.default.createElement(MoveToInbox_1.default, null) : react_1.default.createElement(Mail_1.default, null)),
@@ -102444,7 +102448,7 @@ var NavBar = function (props) {
                     react_1.default.createElement(core_1.ListItemText, { primary: value.title })))); }))),
         renderMenu));
 };
-exports.default = NavBar;
+exports.default = react_router_dom_1.withRouter(NavBar);
 
 
 /***/ }),

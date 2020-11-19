@@ -21,7 +21,7 @@ const App: React.FC = () => {
 
     return (
         <>
-            <NavBar open={open} handleDrawer={handleDrawer} />
+            <NavBar open={open} setAuth={setAuth} handleDrawer={handleDrawer} />
             <Index open={open}>
                 <Routes auth={auth} setAuth={setAuth} />
             </Index>

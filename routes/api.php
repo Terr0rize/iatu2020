@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
     ->middleware(['guest'])
@@ -19,12 +20,12 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
 
-// Route::get('/register', [RegisteredUserController::class, 'create'])
-//     ->middleware(['guest'])
-//     ->name('register');
+Route::get('/register', [RegisteredUserController::class, 'create'])
+    ->middleware(['guest'])
+    ->name('register');
 
-// Route::post('/register', [RegisteredUserController::class, 'store'])
-//     ->middleware(['guest']);
+Route::post('/register', [RegisteredUserController::class, 'store'])
+    ->middleware(['guest']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
