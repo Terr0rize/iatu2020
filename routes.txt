@@ -1,6 +1,20 @@
-+--------+----------+--------------+------+----------------------------------------------+------------+
-| Domain | Method   | URI          | Name | Action                                       | Middleware |
-+--------+----------+--------------+------+----------------------------------------------+------------+
-|        | GET|HEAD | api/products |      | App\Http\Controllers\ProductController@index | api        |
-|        | GET|HEAD | {query}      |      | Closure                                      | web        |
-+--------+----------+--------------+------+----------------------------------------------+------------+
++--------+----------+---------------------+------+------------------------------------------------------------+-------------------------------------------------------------------+
+| Domain | Method   | URI                 | Name | Action                                                     | Middleware                                                        |
++--------+----------+---------------------+------+------------------------------------------------------------+-------------------------------------------------------------------+
+|        | GET|HEAD | api/products        |      | App\Http\Controllers\ProductController@index               | Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful |
+|        |          |                     |      |                                                            | App\Http\Middleware\Authenticate:sanctum                          |
+|        |          |                     |      |                                                            | Illuminate\Routing\Middleware\ThrottleRequests:api                |
+|        |          |                     |      |                                                            | Illuminate\Routing\Middleware\SubstituteBindings                  |
+|        | GET|HEAD | sanctum/csrf-cookie |      | Laravel\Sanctum\Http\Controllers\CsrfCookieController@show | App\Http\Middleware\EncryptCookies                                |
+|        |          |                     |      |                                                            | Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse           |
+|        |          |                     |      |                                                            | Illuminate\Session\Middleware\StartSession                        |
+|        |          |                     |      |                                                            | Illuminate\View\Middleware\ShareErrorsFromSession                 |
+|        |          |                     |      |                                                            | App\Http\Middleware\VerifyCsrfToken                               |
+|        |          |                     |      |                                                            | Illuminate\Routing\Middleware\SubstituteBindings                  |
+|        | GET|HEAD | {query}             |      | Closure                                                    | App\Http\Middleware\EncryptCookies                                |
+|        |          |                     |      |                                                            | Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse           |
+|        |          |                     |      |                                                            | Illuminate\Session\Middleware\StartSession                        |
+|        |          |                     |      |                                                            | Illuminate\View\Middleware\ShareErrorsFromSession                 |
+|        |          |                     |      |                                                            | App\Http\Middleware\VerifyCsrfToken                               |
+|        |          |                     |      |                                                            | Illuminate\Routing\Middleware\SubstituteBindings                  |
++--------+----------+---------------------+------+------------------------------------------------------------+-------------------------------------------------------------------+
