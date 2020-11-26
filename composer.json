@@ -15,8 +15,16 @@
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.0",
         "laravel/sanctum": "^2.8",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "laravel/nova": "*"
+
     },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "./nova"
+        }
+    ],
     "require-dev": {
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^1.9.1",

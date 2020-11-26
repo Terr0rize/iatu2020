@@ -16,5 +16,5 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
 Route::get('/{query}', function () {
     return view('app');
-})->where('query', '^((?!api).)*$');
+})->where('query', '^((?!api|iatu|nova-api).)*$');
 
